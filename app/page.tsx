@@ -13,7 +13,7 @@ import { Stethoscope } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen  flex flex-col w-full relative">
+    <main className="min-h-screen flex flex-col w-full relative">
       {/* ── Navbar ─────────────────────────────────────────── */}
       <nav className="border-b border-gray-100 dark:border-gray-800 px-6 py-10 flex items-center justify-between h-15">
         <span className="text-xl font-semibold text-pink-600">

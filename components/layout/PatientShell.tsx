@@ -141,7 +141,7 @@ export default function PatientShell({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex ">
       <Sidebar
         navItems={primaryNav}
         bottomItems={bottomNav}
@@ -151,7 +151,7 @@ export default function PatientShell({
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-w-0 bg-[#f4f5f7]">
+      <div className="flex-1 flex flex-col min-w-0 ">
         <TopBar onMenuClick={() => setSidebarOpen(true)} />
         <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto">
           {children}
