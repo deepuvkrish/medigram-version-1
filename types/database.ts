@@ -98,6 +98,7 @@ export interface MedicalRecord {
   title: string;
   file_url: string;
   file_size_bytes: number;
+  record_date: string;
   is_deleted: boolean;
   created_at: string;
 }

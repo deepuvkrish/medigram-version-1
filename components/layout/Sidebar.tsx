@@ -89,7 +89,7 @@ export default function Sidebar({
       {/* ── Sidebar panel ───────────────────────────────────── */}
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-full w-64 bg-white border-r border-gray-100
+          fixed top-0 left-0 z-30 h-full w-64 bg-white border-r border-gray-200
           flex flex-col
           transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
@@ -230,8 +230,8 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
         transition-colors
         ${
           isActive
-            ? "bg-blue-200 text-[#1f3bb3] font-medium"
-            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            ? "bg-blue-100/50 text-[#1f3bb3] font-medium"
+            : "text-gray-600  hover:text-[#4a89fd]"
         }
       `}
     >

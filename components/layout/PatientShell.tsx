@@ -95,17 +95,72 @@ const Icons = {
       />
     </svg>
   ),
+  hospital: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="w-4 h-4"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path d="M12 7v4" />
+      <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+      <path d="M14 9h-4" />
+      <path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2" />
+      <path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16" />
+    </svg>
+  ),
+  medicines: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-4 h-4"
+    >
+      <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" />
+      <path d="m8.5 8.5 7 7" />
+    </svg>
+  ),
+  labs: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-4 h-4"
+    >
+      <path d="M6 18h8" />
+      <path d="M3 22h18" />
+      <path d="M14 22a7 7 0 1 0 0-14h-1" />
+      <path d="M9 14h2" />
+      <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z" />
+      <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3" />
+    </svg>
+  ),
+  bloods: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-4 h-4"
+    >
+      <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" />
+      <path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" />
+    </svg>
+  ),
 };
 
 const primaryNav: NavItem[] = [
   { label: "Dashboard", href: "/patient/dashboard", icon: Icons.dashboard },
-  {
-    label: "My Records",
-    href: "/patient/records",
-    icon: Icons.records,
-    disabled: true,
-    badge: "Phase 2",
-  },
+  { label: "My Records", href: "/patient/records", icon: Icons.records },
   {
     label: "Share History",
     href: "/patient/shares",
@@ -119,6 +174,34 @@ const primaryNav: NavItem[] = [
     icon: Icons.search,
     disabled: true,
     badge: "Phase 2",
+  },
+  {
+    label: "Find a Hospital",
+    href: "/patient/hospital",
+    icon: Icons.hospital,
+    disabled: true,
+    badge: "Phase 3",
+  },
+  {
+    label: "Medicine Search",
+    href: "/patient/medicine",
+    icon: Icons.medicines,
+    disabled: true,
+    badge: "Phase 3",
+  },
+  {
+    label: "Find a Lab",
+    href: "/patient/labs",
+    icon: Icons.labs,
+    disabled: true,
+    badge: "Phase 3",
+  },
+  {
+    label: "Find Blood Banks",
+    href: "/patient/bloodbanks",
+    icon: Icons.bloods,
+    disabled: true,
+    badge: "Phase 3",
   },
 ];
 

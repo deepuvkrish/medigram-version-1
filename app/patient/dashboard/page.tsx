@@ -2,14 +2,29 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { FREE_STORAGE_CAP, FREE_SHARE_LIMIT } from "@/lib/constants";
 import type { Metadata } from "next";
-import { Crown } from "lucide-react";
 export const metadata: Metadata = { title: "Dashboard" };
+import { Crown } from "lucide-react";
+import { IconType } from "react-icons";
+import { IoFolderOpen, IoSearch } from "react-icons/io5";
+import { MdAddBox } from "react-icons/md";
+import { PiShareNetworkFill } from "react-icons/pi";
 
 // ============================================================
 // Patient Dashboard — server component.
 // Fetches profile + subscription data directly on the server.
 // No loading state needed — data is ready before page renders.
 // ============================================================
+
+type ActionCardProps = {
+  icon: IconType;
+  title: string;
+  description: string;
+  disabled?: boolean;
+  badge?: string;
+  iconBgColor?: string;
+  iconHoverBgColor?: string;
+  href?: string;
+};
 
 function formatBytes(bytes: number): string {
   if (bytes === 0) return "0 MB";
@@ -82,11 +97,13 @@ export default async function PatientDashboard() {
       </div>
 
       {/* ── Stats row ───────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="hidden md:grid grid-cols-3 gap-4">
         {/* Storage */}
-        <div className="bg-[#001f4717] rounded-xl border border-gray-100 p-4 flex flex-col gap-3">
+        <div className="bg-[#001f4717] rounded-xl border border-gray-100 p-4 flex flex-col gap-3 cursor-pointer hover:bg-[#001f4734] duration-300">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-600">Storage</span>
+            <span className="text-sm font-medium text-gray-600">
+              Desk Storage
+            </span>
             <span
               className={`text-xs px-2 py-0.5 rounded-full font-medium
               ${
@@ -102,7 +119,7 @@ export default async function PatientDashboard() {
         </div>
 
         {/* Shares */}
-        <div className="bg-[#ffe9e9] rounded-xl border border-gray-100 p-4 flex flex-col gap-1">
+        <div className="bg-[#ffe9e9] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdede] duration-300">
           <span className="text-sm font-medium text-gray-600">
             Shares this month
           </span>
@@ -122,7 +139,7 @@ export default async function PatientDashboard() {
         </div>
 
         {/* Subscription */}
-        <div className="bg-[#ffeaf5] rounded-xl border border-gray-100 p-4 flex flex-col gap-1">
+        <div className="bg-[#ffeaf5] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdbee] duration-300">
           <span className="text-sm font-medium text-gray-600 flex items-center">
             <Crown className="mr-1 text-yellow-500" />
             Subscription
@@ -142,7 +159,75 @@ export default async function PatientDashboard() {
             <button
               disabled
               className="mt-2 text-xs text-blue-600 text-left hover:underline
-                         disabled:cursor-not-allowed disabled:opacity-50"
+                         disabled:cursor-not-allowed disabled:opacity-50 "
+            >
+              Upgrade to Pro →
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 sm:hidden gap-4">
+        {/* Storage */}
+        <div className="bg-[#001f4717] rounded-xl border border-gray-100 p-4 flex flex-col gap-3 cursor-pointer hover:bg-[#001f4734] duration-300">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-600">Storage</span>
+            <span
+              className={`text-xs px-2 py-0.5 rounded-full font-medium
+              ${
+                tier === "pro"
+                  ? "bg-blue-100 text-blue-700"
+                  : "bg-gray-100 text-gray-500"
+              }`}
+            >
+              {tier === "pro" ? "Pro — 2GB" : "Free — 200MB"}
+            </span>
+          </div>
+          <StorageBar used={storageUsed} cap={storageCap} />
+        </div>
+
+        {/* Shares */}
+        <div className="bg-[#ffe9e9] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdede] duration-300">
+          <span className="text-sm font-medium text-gray-600">
+            Shares this month
+          </span>
+          <div className="flex items-end gap-1.5 mt-1">
+            <span className="text-3xl font-bold text-gray-900">
+              {sharesLeft}
+            </span>
+            <span className="text-sm text-gray-400 mb-1">
+              of {FREE_SHARE_LIMIT} remaining
+            </span>
+          </div>
+          {sharesLeft === 0 && (
+            <p className="text-xs text-amber-600 mt-1">
+              Limit reached — resets on the 1st.
+            </p>
+          )}
+        </div>
+
+        {/* Subscription */}
+        <div className="bg-[#ffeaf5] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdbee] duration-300">
+          <span className="text-sm font-medium text-gray-600 flex items-center">
+            <Crown className="mr-1 text-yellow-500" />
+            Subscription
+          </span>
+          <div className="flex items-center gap-2 mt-1">
+            <span
+              className={`text-xl font-bold capitalize
+              ${tier === "pro" ? "text-blue-600" : "text-gray-900"}`}
+            >
+              {tier}
+            </span>
+            {tier === "free" && (
+              <span className="text-xs text-gray-400">· Upgrade for more</span>
+            )}
+          </div>
+          {tier === "free" && (
+            <button
+              disabled
+              className="mt-2 text-xs text-blue-600 text-left hover:underline
+                         disabled:cursor-not-allowed disabled:opacity-50 "
             >
               Upgrade to Pro →
             </button>
@@ -159,29 +244,36 @@ export default async function PatientDashboard() {
           <ActionCard
             title="Upload a Record"
             description="Add prescriptions, lab results, scans or bills"
-            icon="📄"
-            badge="Phase 2"
+            icon={MdAddBox}
+            iconBgColor="bg-white"
+            iconHoverBgColor="group-hover:bg-[#6495ed]"
+            href="/patient/records/upload"
           />
           <ActionCard
             title="View My Records"
             description="Browse and manage your medical history"
-            icon="🗂️"
-            disabled
-            badge="Phase 2"
+            icon={IoFolderOpen}
+            iconBgColor="bg-white"
+            iconHoverBgColor="group-hover:bg-[#ffd11a]"
+            href="/patient/records"
           />
           <ActionCard
             title="Share with Doctor"
             description="Send your records to a doctor securely"
-            icon="🔗"
-            disabled
+            icon={PiShareNetworkFill}
             badge="Phase 2"
+            iconBgColor="bg-white"
+            iconHoverBgColor="group-hover:bg-[#009964]"
+            disabled
           />
           <ActionCard
             title="Find a Doctor"
             description="Search doctors by name or specialty"
-            icon="🔍"
-            disabled
+            icon={IoSearch}
             badge="Phase 2"
+            iconBgColor="bg-white"
+            iconHoverBgColor="group-hover:bg-cyan-500"
+            disabled
           />
         </div>
       </div>
@@ -192,30 +284,39 @@ export default async function PatientDashboard() {
 function ActionCard({
   title,
   description,
-  icon,
+  icon: Icon,
   disabled,
   badge,
-}: {
-  title: string;
-  description: string;
-  icon: string;
-  disabled?: boolean;
-  badge?: string;
-}) {
-  return (
+  href,
+  iconBgColor = "bg-gray-100",
+  iconHoverBgColor = "group-hover:bg-[#1f3bb3]",
+}: ActionCardProps) {
+  const hoverStyles = disabled
+    ? ""
+    : `${iconHoverBgColor} group-hover:text-white`;
+  const disabledStyles = disabled ? "text-gray-400" : "text-gray-700";
+  const content = (
     <div
-      className={`bg-white 
-       rounded-xl border border-gray-100 p-4
-      flex items-start gap-3 group
-      ${disabled ? "opacity-60 cursor-not-allowed" : "hover:border-[#1f3ab36b] hover:shadow-sm hover:shadow-[#0000006a] cursor-pointer"}
-      transition-all
-    `}
+      className={`bg-white  rounded-xl border border-gray-100 p-4 flex items-start gap-3 group
+      ${disabled ? "opacity-60 cursor-not-allowed" : "hover:border-[#1f3ab36b] hover:shadow-sm hover:shadow-[#0000006a] cursor-pointer"} transition-all`}
     >
-      <span className="text-2xl">{icon}</span>
+      <span>
+        <Icon
+          className={`
+           ${iconBgColor}
+          ${hoverStyles}
+          ${disabledStyles}
+          duration-100
+          rounded-3xl
+          p-1.5
+          text-[35px]
+        `}
+        />
+      </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span
-            className={`${disabled ? "text-gray-500 " : "group-hover:text-[#1f3bb3] group-hover:text-[16px]"}   duration-500 text-gray-700 text-sm font-medium`}
+            className={`${disabled ? "text-gray-500 " : "text-gray-700"}   duration-500  text-sm font-medium`}
           >
             {title}
           </span>
@@ -229,4 +330,8 @@ function ActionCard({
       </div>
     </div>
   );
+  if (href && !disabled) {
+    return <a href={href}>{content}</a>;
+  }
+  return content;
 }
