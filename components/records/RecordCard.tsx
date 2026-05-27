@@ -3,6 +3,11 @@
 
 import { useState } from "react";
 import type { MedicalRecord } from "@/types/database";
+import { Paperclip } from "lucide-react";
+import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import { FcImageFile } from "react-icons/fc";
+import { MdDeleteForever } from "react-icons/md";
+// import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const CATEGORY_LABELS: Record<string, string> = {
   prescription: "Prescription",
@@ -34,11 +39,12 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function getFileIcon(fileUrl: string): string {
+function getFileIcon(fileUrl: string): React.ReactNode {
   const ext = fileUrl.split(".").pop()?.toLowerCase();
-  if (ext === "pdf") return "📄";
-  if (["jpg", "jpeg", "png", "heic", "heif"].includes(ext ?? "")) return "🖼️";
-  return "📎";
+  if (ext === "pdf") return <BsFileEarmarkPdfFill className="text-red-700" />;
+  if (["jpg", "jpeg", "png", "heic", "heif"].includes(ext ?? ""))
+    return <FcImageFile />;
+  return <Paperclip />;
 }
 
 interface Props {
@@ -96,38 +102,38 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
   };
 
   return (
-    <div
-      className="bg-white rounded-xl border border-gray-100 p-4
-                    hover:border-gray-200 hover:shadow-sm transition-all"
-    >
+    <div className="bg-white rounded-xl border border-gray-100 p-4 hover:border-blue-300 hover:shadow-sm transition-all min-w-87.5 cursor-pointer">
       <div className="flex items-start gap-3">
-        <span className="text-2xl flex-shrink-0 mt-0.5">
+        <span className="text-2xl shrink-0 mt-0.5">
           {getFileIcon(record.file_url)}
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              {record.title}
-            </p>
+            <div className="flex items-center justify-center">
+              <p className="text-sm font-medium text-gray-900 truncate">
+                {record.title}
+              </p>
+              <span className="text-[10px] ml-2 text-gray-500">
+                ({formatBytes(record.file_size_bytes)})
+              </span>
+            </div>
             <span
-              className={`flex-shrink-0 text-xs px-2 py-0.5 rounded-full font-medium
+              className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium
               ${CATEGORY_COLORS[record.category]}`}
             >
               {CATEGORY_LABELS[record.category]}
             </span>
           </div>
-          <div className="flex items-center gap-3 mt-1.5">
+          <div className="flex items-center gap-3 mt-1.5 justify-between">
             {record.record_date && (
               <span className="text-xs text-gray-400">
                 📅 {formatDate(record.record_date)}
               </span>
             )}
-            <span className="text-xs text-gray-400">
-              {formatBytes(record.file_size_bytes)}
-            </span>
-            <span className="text-xs text-gray-300">
-              Uploaded {formatDate(record.created_at)}
-            </span>
+            {/* <span className="flex items-center text-xs text-gray-400">
+              <AiOutlineCloudUpload className="text-blue-400 font-medium mr-1" />{" "}
+              {formatDate(record.created_at)}
+            </span> */}
           </div>
         </div>
       </div>
@@ -144,7 +150,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
           onClick={handleView}
           disabled={viewing}
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                     text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100
+                     text-blue-600 bg-gray-50 rounded-lg hover:bg-blue-100
                      transition-colors disabled:opacity-50"
         >
           {viewing ? "Opening..." : "👁 View"}
@@ -153,11 +159,11 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
         {!showConfirm ? (
           <button
             onClick={() => setShowConfirm(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                       text-red-500 bg-red-50 rounded-lg hover:bg-red-100
-                       transition-colors ml-auto"
+            className="flex items-center gap-1.5 p-1 text-lg font-medium
+                       text-gray-600 bg-red-50 rounded-lg hover:bg-red-100
+                       transition-colors ml-auto hover:text-red-500"
           >
-            🗑 Delete
+            <MdDeleteForever />
           </button>
         ) : (
           <div className="flex items-center gap-2 ml-auto">

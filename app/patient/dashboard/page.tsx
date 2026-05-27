@@ -2,13 +2,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { FREE_STORAGE_CAP, FREE_SHARE_LIMIT } from "@/lib/constants";
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "Dashboard" };
 import { Crown } from "lucide-react";
 import { IconType } from "react-icons";
 import { IoFolderOpen, IoSearch } from "react-icons/io5";
 import { MdAddBox } from "react-icons/md";
 import { PiShareNetworkFill } from "react-icons/pi";
+import Link from "next/link";
 
+export const metadata: Metadata = { title: "Dashboard" };
 // ============================================================
 // Patient Dashboard — server component.
 // Fetches profile + subscription data directly on the server.
@@ -331,7 +332,7 @@ function ActionCard({
     </div>
   );
   if (href && !disabled) {
-    return <a href={href}>{content}</a>;
+    return <Link href={href}>{content}</Link>;
   }
   return content;
 }

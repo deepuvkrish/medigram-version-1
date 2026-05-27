@@ -83,7 +83,8 @@ export async function proxy(request: NextRequest) {
     // No point showing login to someone already authenticated.
     if (
       user &&
-      (pathname.startsWith("/auth/login") ||
+      (pathname === "/" ||
+        pathname.startsWith("/auth/login") ||
         pathname.startsWith("/auth/signup"))
     ) {
       const role = user.user_metadata?.role as string | undefined;

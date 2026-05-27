@@ -154,6 +154,31 @@ export default function PatientSignupForm() {
         />
       </div>
 
+      {/* Terms and conditions checkbox */}
+      <div className="flex flex-col gap-1">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 rounded border-gray-300 text-(--cornBlue)
+                       focus:ring-blue-500 cursor-pointer shrink-0"
+            {...register("terms")}
+          />
+          <span className="text-sm text-gray-300 md:text-gray-600">
+            I agree to the{" "}
+            <Link href="/terms" className="text-(--cornBlue) hover:underline">
+              Terms of Service
+            </Link>
+            {" and "}
+            <Link href="/privacy" className="text-(--cornBlue) hover:underline">
+              Privacy Policy
+            </Link>
+          </span>
+        </label>
+        {errors.terms && (
+          <p className="text-xs text-red-500 ml-7">{errors.terms.message}</p>
+        )}
+      </div>
+
       {/* Server-side error — shown below the form */}
       {serverError && (
         <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3">
@@ -161,15 +186,21 @@ export default function PatientSignupForm() {
         </div>
       )}
 
-      <Button type="submit" fullWidth isLoading={isSubmitting} className="mt-2">
-        Create patient account
+      <Button
+        type="submit"
+        variant="cornBlue"
+        fullWidth
+        isLoading={isSubmitting}
+        className="mt-2"
+      >
+        Create account
       </Button>
 
       <p className="text-center text-sm text-gray-500">
         Are you a doctor?{" "}
         <Link
           href="/auth/signup/doctor"
-          className="text-blue-600 hover:underline"
+          className="text-(--cornBlue) hover:underline"
         >
           Register here
         </Link>
@@ -177,7 +208,7 @@ export default function PatientSignupForm() {
 
       <p className="text-center text-sm text-gray-500">
         Already have an account?{" "}
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+        <Link href="/auth/login" className="text-(--cornBlue) hover:underline">
           Log in
         </Link>
       </p>

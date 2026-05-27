@@ -1,4 +1,4 @@
-// app / api / profile / update / route.ts;
+//app/api/profile/update/route.ts;
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { adminClient } from "@/lib/supabase/admin";
@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
         .from("doctor_profiles")
         .update({
           hospital_name: fields.hospital_name || null,
+          qualifications: fields.qualifications ?? [],
         })
         .eq("id", user.id);
 

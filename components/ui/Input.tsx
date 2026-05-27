@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, hint, className = "", ...props }, ref) => {
     return (
       <div className="flex flex-col gap-1">
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-medium text-white md:text-gray-700">
           {label}
           {props.required && <span className="text-red-500 ml-1">*</span>}
         </label>

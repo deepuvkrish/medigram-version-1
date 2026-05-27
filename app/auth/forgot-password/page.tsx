@@ -13,6 +13,8 @@ import {
 } from "@/lib/validations";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
+import { IoReturnDownBack } from "react-icons/io5";
 
 export default function ForgotPasswordPage() {
   const supabase = createClient();
@@ -43,21 +45,24 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <a href="/" className="text-2xl font-semibold text-blue-600">
-            Medgram
-          </a>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900">
+    <main className="min-h-screen bg-(--mobileDark) md:bg-gray-100  flex items-center justify-center px-4">
+      <div className="w-full max-w-md flex flex-col justify-between h-1/2">
+        <div className="flex flex-col items-center justify-center text-center mb:20 md:mb-8 ">
+          <Image
+            src="/images/heal_nav.png"
+            alt="logo"
+            height={200}
+            width={200}
+          />
+          <h1 className="mt-4 text-2xl font-bold text-white md:text-gray-900">
             Reset your password
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-300 md:text-gray-500">
             Enter your email and we'll send a reset link
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 px-6 py-8">
+        <div className="bg-(--mobileDark) md:bg-white rounded-2xl shadow-sm border-none md:border md:border-gray-100 px-6 py-8">
           {sent ? (
             <div className="text-center">
               <div
@@ -106,17 +111,22 @@ export default function ForgotPasswordPage() {
                   <p className="text-sm text-red-600">{serverError}</p>
                 </div>
               )}
-              <Button type="submit" fullWidth isLoading={isSubmitting}>
-                Send reset link
+              <Button
+                type="submit"
+                variant="cornBlue"
+                fullWidth
+                isLoading={isSubmitting}
+              >
+                Send Reset Link
               </Button>
-              <p className="text-center text-sm text-gray-500">
+              <div className="flex w-full justify-center text-center text-sm text-gray-500">
                 <Link
                   href="/auth/login"
-                  className="text-blue-600 hover:underline"
+                  className="text-(--cornBlue) hover:underline flex items-center"
                 >
-                  Back to log in
+                  <IoReturnDownBack className="mr-1" /> Back to log in
                 </Link>
-              </p>
+              </div>
             </form>
           )}
         </div>

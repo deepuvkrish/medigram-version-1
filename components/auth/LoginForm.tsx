@@ -110,7 +110,7 @@ export default function LoginForm() {
       <div className="flex justify-end">
         <Link
           href="/auth/forgot-password"
-          className="text-sm text-blue-600 hover:underline"
+          className="text-sm text-(--cornBlue) hover:underline"
         >
           Forgot password?
         </Link>
@@ -122,7 +122,12 @@ export default function LoginForm() {
         </div>
       )}
 
-      <Button type="submit" fullWidth isLoading={isSubmitting}>
+      <Button
+        type="submit"
+        variant="cornBlue"
+        fullWidth
+        isLoading={isSubmitting}
+      >
         Log in
       </Button>
 
@@ -131,22 +136,24 @@ export default function LoginForm() {
           <div className="w-full border-t border-gray-200" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-white px-3 text-gray-400">New to Medgram?</span>
+          <span className="bg-(--mobileDark) md:bg-white px-3 text-gray-400">
+            New to Medgram?
+          </span>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <Link
           href="/auth/signup/patient"
-          className="text-center px-4 py-2 border border-gray-300 rounded-lg
-                     text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+          className="text-center px-4 py-2 border border-gray-600 md:border-gray-300 rounded-lg
+                     text-sm text-gray-100 md:text-gray-700 hover:bg-gray-50 transition-colors"
         >
-          Patient signup
+          User signup
         </Link>
         <Link
           href="/auth/signup/doctor"
-          className="text-center px-4 py-2 border border-gray-300 rounded-lg
-                     text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+          className="text-center px-4 py-2 border border-gray-600 md:border-gray-300 rounded-lg
+                     text-sm text-gray-100 md:text-gray-700 hover:bg-gray-50 transition-colors"
         >
           Doctor signup
         </Link>

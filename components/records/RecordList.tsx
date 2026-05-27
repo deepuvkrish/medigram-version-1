@@ -69,15 +69,15 @@ export default function RecordList({ initialRecords }: Props) {
                 transition-colors flex items-center gap-1.5
                 ${
                   tab === t.value
-                    ? "bg-blue-600 text-white"
+                    ? "bg-blue-100 text-blue-600 border border-blue-200"
                     : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
-                }
+                } 
               `}
             >
               {t.label}
               <span
                 className={`text-xs px-1.5 py-0.5 rounded-full
-                ${tab === t.value ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-500"}
+                ${tab === t.value ? "bg-(--cornBlue) text-white" : "bg-gray-100 text-gray-500"}
               `}
               >
                 {count}
@@ -112,7 +112,7 @@ export default function RecordList({ initialRecords }: Props) {
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-row gap-3 flex-wrap">
           {filtered.map((record) => (
             <RecordCard
               key={record.id}

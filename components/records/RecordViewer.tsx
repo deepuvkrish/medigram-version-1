@@ -2,13 +2,15 @@
 
 "use client";
 
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import ImageSkeleton from "../ui/ImageSkeleton";
 // ============================================================
 // RecordViewer — modal overlay for viewing a record.
 // Supports PDF (iframe) and image display.
 // Closes on backdrop click or Escape key.
 // ============================================================
+import { FaRegWindowRestore } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 interface Props {
   url: string;
@@ -35,21 +37,25 @@ export default function RecordViewer({ url, type, title, onClose }: Props) {
     };
   }, []);
 
+  useEffect(() => {
+    setImageLoading(true);
+  }, [url]);
+  const [imageLoading, setImageLoading] = useState(true);
+
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm
-                 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl
-                   max-h-[90vh] flex flex-col overflow-hidden"
+        className="bg-white rounded-2xl shadow-2xl w-full h-full max-w-4xl
+                   max-h-screen flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
         // stopPropagation prevents clicks inside modal from closing it
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 shrink-0">
-          <p className="text-sm font-medium text-gray-900 truncate pr-4">
+        <div className="flex items-center justify-between bg-(--cornBlue) px-5 py-4 border-b border-blue-400 shrink-0">
+          <p className="text-lg font-medium text-white truncate pr-4">
             {title}
           </p>
           <div className="flex items-center gap-2 shrink-0">
@@ -57,28 +63,16 @@ export default function RecordViewer({ url, type, title, onClose }: Props) {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs px-3 py-1.5 bg-gray-100 text-gray-600
-                         rounded-lg hover:bg-gray-200 transition-colors"
+              className="flex items-center text-xs px-3 py-1.5 bg-blue-100 text-gray-600
+                         rounded-lg hover:bg-(--linkActive) hover:text-white transition-colors"
             >
-              Open in new tab ↗
+              <FaRegWindowRestore className="mr-1" /> Open in new tab ↗
             </a>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+              className="p-1.5 rounded-lg text-gray-100 hover:text-red-600 hover:bg-gray-100 transition-colors"
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <IoClose />
             </button>
           </div>
         </div>
@@ -88,15 +82,25 @@ export default function RecordViewer({ url, type, title, onClose }: Props) {
           {type === "pdf" ? (
             <iframe
               src={url}
-              className="w-full h-full min-h-[70vh]"
+              className="w-full h-full min-h-[90vh]"
               title={title}
             />
           ) : (
             <div className="flex items-center justify-center p-4 min-h-[50vh]">
+              {/* Skeleton */}
+              {imageLoading && (
+                <div className="absolute inset-4">
+                  <ImageSkeleton />
+                </div>
+              )}
+
               <img
                 src={url}
                 alt={title}
-                className="max-w-full max-h-[75vh] object-contain rounded-lg"
+                onLoad={() => setImageLoading(false)}
+                onError={() => setImageLoading(false)}
+                className={`max-w-full max-h-[75vh] object-contain rounded-lg transition-opacity duration-300
+                    ${imageLoading ? "opacity-0" : "opacity-100"}`}
               />
             </div>
           )}

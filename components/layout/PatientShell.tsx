@@ -216,11 +216,19 @@ const bottomNav: NavItem[] = [
   },
 ];
 
+interface PatientShellProps {
+  children: React.ReactNode;
+  userName: string;
+  userEmail: string;
+  avatarUrl: string | null;
+}
+
 export default function PatientShell({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  userName,
+  userEmail,
+  avatarUrl,
+}: PatientShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -229,8 +237,9 @@ export default function PatientShell({
         navItems={primaryNav}
         bottomItems={bottomNav}
         userRole="patient"
-        userName="My Account"
-        userEmail=""
+        userName={userName}
+        userEmail={userEmail}
+        avatarUrl={avatarUrl}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />

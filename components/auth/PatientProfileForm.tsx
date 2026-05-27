@@ -13,6 +13,7 @@ import {
 } from "@/lib/validations";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import AvatarUpload from "@/components/ui/AvatarUpload";
 import type { Profile, PatientProfile } from "@/types/database";
 
 // ============================================================
@@ -31,6 +32,7 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
   const supabase = createClient();
   const [serverError, setServerError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(profile.avatar_url);
 
   const {
     register,
@@ -74,6 +76,14 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      {/* ── Avatar ──────────────────────────────────────────── */}
+      <AvatarUpload
+        currentUrl={avatarUrl}
+        userId={profile.id}
+        role="patient"
+        displayName={`${profile.first_name} ${profile.last_name ?? ""}`}
+        onUpload={(url) => setAvatarUrl(url)}
+      />
       {/* ── Account info (read-only) ──────────────────────── */}
       <div>
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">

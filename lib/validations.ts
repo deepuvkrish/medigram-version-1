@@ -52,6 +52,10 @@ export const patientSignupSchema = z.object({
     .max(10, "Enter a valid pincode")
     .regex(/^[0-9]+$/, "Pincode must contain only numbers")
     .trim(),
+
+  terms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms to continue",
+  }),
 });
 
 export type PatientSignupData = z.infer<typeof patientSignupSchema>;
@@ -89,6 +93,10 @@ export const doctorSignupSchema = z.object({
     .optional(),
 
   city: z.string().min(1, "City is required").trim(),
+
+  terms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms to continue",
+  }),
 });
 
 export type DoctorSignupData = z.infer<typeof doctorSignupSchema>;

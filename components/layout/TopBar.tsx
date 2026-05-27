@@ -5,25 +5,22 @@
 // that toggles the sidebar drawer. Hidden on desktop where
 // the sidebar is always visible.
 // ============================================================
-
+import Image from "next/image";
 interface TopBarProps {
   onMenuClick: () => void;
-  title?: string;
+  src?: string;
 }
 
 export default function TopBar({
   onMenuClick,
-  title = "Medgram",
+  src = "/images/heal-logo.svg",
 }: TopBarProps) {
   return (
-    <header
-      className="lg:hidden sticky top-0 z-10  border-b border-gray-100
-                        flex items-center gap-3 px-4 py-3"
-    >
+    <header className="lg:hidden sticky top-0 z-10  border-b border-gray-700  flex items-center gap-3 px-4 py-3">
       {/* Hamburger button */}
       <button
         onClick={onMenuClick}
-        className="p-1.5 rounded-lg text-gray-500 hover:text-gray-700
+        className="p-1.5 rounded-lg text-gray-300 hover:text-blue-400
                    hover:bg-gray-100 transition-colors"
         aria-label="Open menu"
       >
@@ -42,7 +39,14 @@ export default function TopBar({
         </svg>
       </button>
 
-      <span className="text-base font-semibold text-blue-600">{title}</span>
+      <Image
+        src={src}
+        height={100}
+        width={100}
+        unoptimized
+        alt="logo"
+        className="w-15"
+      />
     </header>
   );
 }

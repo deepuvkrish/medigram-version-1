@@ -111,21 +111,30 @@ const bottomNav: NavItem[] = [
   },
 ];
 
+interface DoctorShellProps {
+  children: React.ReactNode;
+  userName: string;
+  userEmail: string;
+  avatarUrl: string | null;
+}
+
 export default function DoctorShell({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  userName,
+  userEmail,
+  avatarUrl,
+}: DoctorShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex bg-(--mobileDark) md:bg-background">
       <Sidebar
         navItems={primaryNav}
         bottomItems={bottomNav}
         userRole="doctor"
-        userName="My Account"
-        userEmail=""
+        userName={userName}
+        userEmail={userEmail}
+        avatarUrl={avatarUrl}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />

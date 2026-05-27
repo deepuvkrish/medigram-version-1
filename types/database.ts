@@ -24,6 +24,7 @@ export interface Profile {
   avatar_url: string | null;
   created_at: string;
   updated_at: string;
+  terms_accepted_at: string | null;
 }
 
 // ---- patient_profiles ----------------------------------------
@@ -42,6 +43,7 @@ export interface DoctorProfile {
   doctor_code: string; // stored without prefix e.g. "K7X2P9QA1R"
   specialty: Specialty;
   hospital_name: string | null;
+  qualifications: string[];
   is_verified: boolean;
 }
 

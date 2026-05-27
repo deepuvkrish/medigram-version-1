@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-
+import Image from "next/image";
 // ============================================================
 // Sidebar — Shared by patient and doctor layouts.
 // Desktop: fixed left sidebar.
@@ -89,25 +89,28 @@ export default function Sidebar({
       {/* ── Sidebar panel ───────────────────────────────────── */}
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-full w-64 bg-white border-r border-gray-200
-          flex flex-col
-          transition-transform duration-300 ease-in-out
+          fixed top-0 left-0 z-30 h-full w-64 bg-(--mobileDarkSide) md:bg-white border-r 
+          md:border-gray-200 border-gray-700
+          flex flex-col transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* ── Logo ──────────────────────────────────────────── */}
-        <div className="px-5 py-5 border-b border-gray-100 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-lg font-semibold text-pink-600 tracking-tight"
-          >
-            Medgram
+        <div className="px-5 py-5 border-b border-gray-700 md:border-gray-100 flex items-center justify-between">
+          <Link href="/" className=" tracking-tight">
+            <Image
+              src="/images/heal_nav.png"
+              alt="Background Image"
+              width={100}
+              height={100}
+              unoptimized
+            />
           </Link>
           {/* Close button — mobile only */}
           <button
             onClick={onClose}
-            className="lg:hidden p-1 rounded-md text-gray-400 hover:text-gray-600
+            className="lg:hidden p-1 rounded-md text-gray-300 hover:text-gray-200
                        hover:bg-gray-100 transition-colors"
           >
             <svg
@@ -127,17 +130,20 @@ export default function Sidebar({
         </div>
 
         {/* ── User info strip ───────────────────────────────── */}
-        <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+        <div className="px-4 py-3 border-b border-gray-700 md:border-gray-100 flex items-center gap-3">
           {/* Avatar */}
           <div
             className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center
                           shrink-0 overflow-hidden"
           >
             {avatarUrl ? (
-              <img
+              <Image
                 src={avatarUrl}
                 alt={userName}
                 className="w-full h-full object-cover"
+                width={100}
+                height={100}
+                unoptimized
               />
             ) : (
               <span className="text-xs font-semibold text-white">
@@ -146,8 +152,8 @@ export default function Sidebar({
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              {userName}
+            <p className="text-sm font-medium text-white md:text-gray-900 truncate">
+              {userRole == "patient" ? " " : "Dr "} {userName}
             </p>
             <p className="text-xs text-gray-400 truncate">{userEmail}</p>
           </div>
@@ -230,7 +236,7 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
         transition-colors
         ${
           isActive
-            ? "bg-blue-100/50 text-[#1f3bb3] font-medium"
+            ? "bg-transparent md:bg-blue-100/50 text-(--cornBlue) md:text-[#1f3bb3] font-medium"
             : "text-gray-600  hover:text-[#4a89fd]"
         }
       `}

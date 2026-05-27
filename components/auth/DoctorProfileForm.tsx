@@ -1,14 +1,15 @@
 // components / auth / DoctorProfileForm.tsx;
-("use client");
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { doctorProfileSchema, type DoctorProfileData } from "@/lib/validations";
-import { SPECIALTIES } from "@/lib/constants";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import QualificationsInput from "@/components/ui/QualificationsInput";
+import AvatarUpload from "@/components/ui/AvatarUpload";
 import type {
   Profile,
   DoctorProfile,
@@ -34,6 +35,10 @@ export default function DoctorProfileForm({
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [qualifications, setQualifications] = useState<string[]>(
+    doctorProfile.qualifications ?? [],
+  );
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(profile.avatar_url);
   const [mciNumber, setMciNumber] = useState(verification?.mci_number ?? "");
   const [mciFile, setMciFile] = useState<File | null>(null);
   const [mciSubmitting, setMciSubmitting] = useState(false);
@@ -62,7 +67,11 @@ export default function DoctorProfileForm({
     const res = await fetch("/api/profile/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ role: "doctor", ...data }),
+      body: JSON.stringify({
+        role: "doctor",
+        ...data,
+        qualifications,
+      }),
     });
 
     if (!res.ok) {
@@ -115,11 +124,23 @@ export default function DoctorProfileForm({
 
   const verifStatus = verification?.status ?? "unverified";
   const canSubmit = verifStatus === "unverified" || verifStatus === "rejected";
+  const displayName = [profile.first_name, profile.last_name]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className="flex flex-col gap-8">
       {/* ── Profile form ──────────────────────────────────── */}
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        {/* ── Avatar ────────────────────────────────────────── */}
+        <AvatarUpload
+          currentUrl={avatarUrl}
+          userId={profile.id}
+          role="doctor"
+          displayName={displayName}
+          onUpload={(url) => setAvatarUrl(url)}
+        />
+        {/* ── Account info ──────────────────────────────────── */}
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
             Account
@@ -137,6 +158,7 @@ export default function DoctorProfileForm({
           </div>
         </div>
 
+        {/* ── Personal info ─────────────────────────────────── */}
         <div>
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
             Personal information
@@ -171,6 +193,11 @@ export default function DoctorProfileForm({
               label="City"
               error={errors.city?.message}
               {...register("city")}
+            />
+            {/* Qualifications autocomplete */}
+            <QualificationsInput
+              value={qualifications}
+              onChange={setQualifications}
             />
           </div>
         </div>
