@@ -4,6 +4,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { QUALIFICATIONS } from "@/lib/constants";
+import { IoClose } from "react-icons/io5";
 
 // ============================================================
 // QualificationsInput — autocomplete tag input.
@@ -89,7 +90,7 @@ export default function QualificationsInput({ value, onChange, error }: Props) {
 
   return (
     <div className="flex flex-col gap-1">
-      <label className="text-sm font-medium text-gray-700">
+      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
         Qualifications
         <span className="text-xs text-gray-400 font-normal ml-2">
           Type to search and add
@@ -103,29 +104,17 @@ export default function QualificationsInput({ value, onChange, error }: Props) {
             <span
               key={qual}
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full
-                         bg-blue-50 text-blue-700 text-xs font-medium"
+                         bg-blue-50 dark:bg-(--cornBlue) text-blue-700 dark:text-gray-100 text-xs font-medium"
             >
               {qual}
               <button
                 type="button"
                 onClick={() => removeQualification(qual)}
-                className="ml-0.5 text-blue-400 hover:text-blue-700
+                className="ml-0.5 text-blue-400 dark:text-white hover:text-blue-700 dark:hover:text-blue-900
                            transition-colors rounded-full"
                 aria-label={`Remove ${qual}`}
               >
-                <svg
-                  className="w-3 h-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <IoClose />
               </button>
             </span>
           ))}
@@ -144,14 +133,12 @@ export default function QualificationsInput({ value, onChange, error }: Props) {
           onFocus={() => query && setSuggestions.length > 0 && setOpen(true)}
           placeholder="e.g. M.B.B.S, M.D (Cardiology)..."
           className={`
-            w-full px-3 py-2 rounded-lg border text-sm
-            bg-white text-gray-900 placeholder-gray-400
-            transition-colors duration-150
-            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+            w-full px-3 py-2 rounded-lg text-sm text-gray-100 md:text-gray-400 dark:md:text-gray-300  bg-[#242428] md:bg-[#f1f4fb] dark:md:bg-[#232428]  placeholder-gray-400
+            transition-colors duration-150focus:outline-none focus:ring-3 focus:ring-(--cornBlue) border focus:border-none 
             ${
               error
                 ? "border-red-400 focus:ring-red-400"
-                : "border-gray-300 hover:border-gray-400"
+                : "border-gray-300 dark:border-gray-900 hover:border-(--cornBlue)"
             }
           `}
         />
@@ -160,8 +147,7 @@ export default function QualificationsInput({ value, onChange, error }: Props) {
         {open && suggestions.length > 0 && (
           <ul
             ref={listRef}
-            className="absolute bottom-full left-0 right-0 mb-1 z-50
-                       bg-white border border-gray-200 rounded-lg shadow-lg
+            className="absolute bottom-full left-0 right-0 mb-1 z-50 bg-[#242428] md:bg-[#f1f4fb] dark:md:bg-[#232428] border border-gray-200 rounded-lg shadow-lg
                        max-h-52 overflow-y-auto"
             // bottom-full = popup appears ABOVE the input
           >
@@ -175,7 +161,7 @@ export default function QualificationsInput({ value, onChange, error }: Props) {
                     ${
                       index === activeIndex
                         ? "bg-blue-50 text-blue-700"
-                        : "text-gray-700 hover:bg-gray-50"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-black"
                     }
                   `}
                 >

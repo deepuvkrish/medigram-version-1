@@ -39,7 +39,9 @@ export default async function RecordsPage() {
       {/* ── Header ──────────────────────────────────────────── */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Records</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-200">
+            My Records
+          </h1>
           <p className="text-sm text-gray-500 mt-1">
             {records?.length ?? 0} record{records?.length !== 1 ? "s" : ""}{" "}
             stored

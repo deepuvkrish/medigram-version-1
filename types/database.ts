@@ -35,6 +35,7 @@ export interface PatientProfile {
   state: string | null;
   pincode: string | null;
   date_of_birth: string | null;
+  patient_code: string | null;
 }
 
 // ---- doctor_profiles -----------------------------------------
@@ -166,4 +167,14 @@ export interface DoctorSearchResult {
   specialty: Specialty;
   hospital_name: string | null;
   is_verified: boolean;
+}
+
+//Phase 3 - for generating qr codes to share records
+export interface QRToken {
+  id: string;
+  patient_id: string;
+  token: string;
+  expires_at: string;
+  used_at: string | null;
+  created_at: string;
 }

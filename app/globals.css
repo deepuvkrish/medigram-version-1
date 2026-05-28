@@ -18,9 +18,10 @@
   --sliderBlue: #6495ed;
   --cornBlue: #6495ed;
   --logoPink: #e60076;
-  --yellow: #009964;
+  --yellow: #fac20a;
   --mobileDark: #1e1f28;
   --mobileDarkSide: #262836;
+  --mobileDarkSideMobile: #fff;
 }
 
 @theme inline {
@@ -32,8 +33,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #f1f4fb;
-    --foreground: #0a0a0a;
+    --background: #242428;
+    --foreground: #f1f4fb;
+    --mobileDarkSideMobile: #161618;
   }
 }
 

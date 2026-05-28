@@ -1,13 +1,15 @@
-// app / doctor / profile / page.tsx;
+//app/doctor/profile/page.tsx;
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import DoctorProfileForm from "@/components/auth/DoctorProfileForm";
 import { DOCTOR_CODE_PREFIX } from "@/lib/constants";
 import type { Metadata } from "next";
-import { Copy, AtSign } from "lucide-react";
+import { AtSign } from "lucide-react";
 import Image from "next/image";
 import CopyCodeButton from "@/components/ui/CopyCodeButton";
+import { CiStethoscope } from "react-icons/ci";
+import { TbHospital } from "react-icons/tb";
 
 export const metadata: Metadata = { title: "Profile" };
 
@@ -40,31 +42,39 @@ export default async function DoctorProfilePage() {
   const Emails = `${profileRes.data.email}`;
   const Specs = `${doctorRes.data.specialty}`;
   const hName = `${doctorRes.data.hospital_name}`;
-  const Qualifications = `${doctorRes.data.qualifications}`;
-  const Verify = `${verificationRes.data.status}`;
+  const qualifications: string[] = doctorRes.data.qualifications ?? [];
+  // const Verify = `${verificationRes.data.status}`;
 
   return (
     <div className="flex flex-col gap-4 max-w-6xl">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Profile</h1>
+        <h1 className="text-2xl font-bold text-gray-500 md:text-gray-900 md:dark:text-gray-200">
+          Profile
+        </h1>
         <p className="text-sm text-gray-500 mt-1">
           Manage your professional information
         </p>
       </div>
 
       {/* DR- code display — read only */}
-      <div className="bg-white rounded-xl border border-gray-100 px-6 py-4 flex items-center  w-full h-auto md:h-35">
-        <div className="w-fit">
+      <div className="bg-(--mobileDarkSide) sm:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 sm:border-gray-200 md:dark:border-gray-800 px-6 py-6 flex items-center w-full h-auto md:h-45">
+        <div className="w-fit relative">
           <Image
-            src={avatarURL}
+            src={
+              avatarURL && avatarURL !== "null"
+                ? avatarURL
+                : "/images/icons/doctor.svg"
+            }
             alt="Profile Picture"
-            className="w-20 h-30 object-cover rounded-xl"
+            className="w-20 h-30 object-contain rounded-xl z-1"
             width={100}
             height={100}
             unoptimized
           />
+          <CiStethoscope className="bg-(--cornBlue) text-white p-1 rounded-full h-8 w-8 absolute -top-1 -right-1 z-2" />
         </div>
-        <div className="w-fit px-2 flex flex-col">
+
+        <div className="w-fit px-2 flex flex-col ml-3">
           <div className="flex items-center">
             <span className="font-bold font-mono text-xl uppercase">
               Dr.{Name} {LName}
@@ -74,14 +84,22 @@ export default async function DoctorProfilePage() {
             </span>
           </div>
           <span className="flex items-center text-gray-500 text-[12px]">
-            {Qualifications.split(" ")} | {hName}
+            {qualifications?.map((item) => (
+              <span key={item} className="mr-2 text-xs font-medium ">
+                {item}
+              </span>
+            ))}
+          </span>
+          <span className="flex items-center text-gray-500 text-[12px] mt-3">
+            <TbHospital className="mr-1 w-4 h-4" />
+            {hName}
           </span>
           <span className="flex items-center text-gray-500">
-            <AtSign className="mr-1 w-3 h-4" /> {Emails}
+            <AtSign className="mr-1 w-4 h-4" /> {Emails}
           </span>
         </div>
 
-        <div className="flex items-baseline h-full mx-10">
+        <div className="flex items-baseline h-full mx-3">
           <Image
             src={
               Specs === "Cardiologist"
@@ -117,7 +135,7 @@ export default async function DoctorProfilePage() {
             alt="Verification Status"
             width={100}
             height={100}
-            className="opacity-30"
+            className="opacity-40"
           />
         </div>
         {/* <div className="flex items-center">
@@ -149,10 +167,9 @@ export default async function DoctorProfilePage() {
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
             Your Doctor ID
           </p>
-          <span className="flex items-center text-xl font-bold font-mono tracking-widest text-gray-900">
+          <span className="flex items-center text-xl font-bold font-mono tracking-widest text-gray-500 md:text-gray-900 md:dark:text-blue-400/50 ">
             {doctorCode}
             <CopyCodeButton code={doctorCode} />
-            {/* <CopyyCodeButton code={doctorCode} /> */}
           </span>
           <p className="text-xs text-gray-400 mt-1.5">
             Share this ID with patients so they can find and send you their
@@ -166,7 +183,7 @@ export default async function DoctorProfilePage() {
         )}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 px-6 py-6">
+      <div className="bg-(--mobileDarkSide) sm:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 md:border-gray-200 md:dark:border-gray-800 px-6 py-6 shadow-sm">
         <DoctorProfileForm
           profile={profileRes.data}
           doctorProfile={doctorRes.data}
@@ -174,21 +191,5 @@ export default async function DoctorProfilePage() {
         />
       </div>
     </div>
-  );
-}
-
-// Copy button is a client component — needs browser API
-function CopyyCodeButton({ code }: { code: string }) {
-  // We use a small inline script approach since this is inside
-  // a server component. A proper solution uses a 'use client' wrapper.
-  return (
-    <button
-      onClick={undefined}
-      className="ml-2 text-xs text-(--cornBlue) hover:underline flex items-center cursor-pointer"
-      // Full copy functionality added when we make this a client component
-    >
-      <Copy className="mr-1 w-4 h-4" />
-      Copy ID
-    </button>
   );
 }

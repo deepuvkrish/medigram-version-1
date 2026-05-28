@@ -89,10 +89,6 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
           Account
         </p>
-        <div className="bg-gray-50 rounded-lg px-4 py-3 text-sm text-gray-600">
-          <span className="font-medium">Email: </span>
-          {profile.email}
-        </div>
       </div>
 
       {/* ── Personal info ─────────────────────────────────── */}
@@ -107,33 +103,37 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
               required
               error={errors.first_name?.message}
               {...register("first_name")}
+              edit
             />
             <Input
               label="Last name"
               error={errors.last_name?.message}
               {...register("last_name")}
+              edit
+            />
+
+            <Input
+              label="Phone number"
+              type="tel"
+              placeholder="+91 12345 67890"
+              error={errors.phone?.message}
+              {...register("phone")}
+              edit
+            />
+
+            <Input
+              label="Date of birth"
+              type="date"
+              error={errors.date_of_birth?.message}
+              {...register("date_of_birth")}
+              edit
             />
           </div>
-
-          <Input
-            label="Phone number"
-            type="tel"
-            placeholder="+91 12345 67890"
-            error={errors.phone?.message}
-            {...register("phone")}
-          />
-
-          <Input
-            label="Date of birth"
-            type="date"
-            error={errors.date_of_birth?.message}
-            {...register("date_of_birth")}
-          />
         </div>
       </div>
 
       {/* ── Location ──────────────────────────────────────── */}
-      <div>
+      <div className="mt-5">
         <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
           Location
         </p>
@@ -143,11 +143,13 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
               label="Country"
               error={errors.country?.message}
               {...register("country")}
+              edit
             />
             <Input
               label="State"
               error={errors.state?.message}
               {...register("state")}
+              edit
             />
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -155,11 +157,13 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
               label="City"
               error={errors.city?.message}
               {...register("city")}
+              edit
             />
             <Input
               label="Pincode"
               error={errors.pincode?.message}
               {...register("pincode")}
+              edit
             />
           </div>
         </div>

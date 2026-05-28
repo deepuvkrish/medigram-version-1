@@ -41,23 +41,23 @@ export default function CopyCodeButton({ code }: Props) {
     <button
       onClick={handleCopy}
       className={`
-        ml-2 flex items-center cursor-pointer gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
+        ml-2 flex items-center cursor-pointer gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-medium
         transition-all duration-200
         ${
           copied
-            ? "bg-green-50 text-green-700 border border-green-200"
-            : "bg-gray-100 text-(--cornBlue) hover:bg-gray-200 border border-transparent"
+            ? " text-green-700 dark:text-green-400"
+            : "text-gray-400 dark:text-blue-200/40 hover:text-(--cornBlue)"
         }
       `}
     >
       {copied ? (
         <>
-          <CheckCheck className="mr-1 w-4 h-4" />
+          <CheckCheck className="mr-0.5 w-4 h-4" />
           Copied!
         </>
       ) : (
         <>
-          <Copy className="mr-1 w-4 h-4" />
+          <Copy className="mr-0.5 w-4 h-4" />
           Copy ID
         </>
       )}

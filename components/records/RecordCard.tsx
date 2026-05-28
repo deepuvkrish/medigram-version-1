@@ -18,9 +18,11 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const CATEGORY_COLORS: Record<string, string> = {
-  prescription: "bg-blue-50 text-blue-700",
-  lab_result: "bg-purple-50 text-purple-700",
-  scan: "bg-teal-50 text-teal-700",
+  prescription:
+    "bg-blue-50 text-blue-700 dark:bg-[#1447e657] dark:text-blue-50",
+  lab_result:
+    "bg-purple-50 text-purple-700 dark:text-purple-50 dark:bg-[#8200db4d]",
+  scan: "bg-teal-50 text-teal-700 dark:text-teal-50 dark:bg-teal-700",
   bill: "bg-amber-50 text-amber-700",
   other: "bg-gray-100 text-gray-600",
 };
@@ -102,7 +104,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-4 hover:border-blue-300 hover:shadow-sm transition-all min-w-87.5 cursor-pointer">
+    <div className="bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 dark:border-gray-900 p-4 hover:border-blue-300 hover:shadow-sm transition-all min-w-87.5 cursor-pointer">
       <div className="flex items-start gap-3">
         <span className="text-2xl shrink-0 mt-0.5">
           {getFileIcon(record.file_url)}
@@ -110,7 +112,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center justify-center">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-300 truncate">
                 {record.title}
               </p>
               <span className="text-[10px] ml-2 text-gray-500">
@@ -118,7 +120,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
               </span>
             </div>
             <span
-              className={`shrink-0 text-xs px-2 py-0.5 rounded-full font-medium
+              className={`shrink-0 text-[12px] px-2 py-0.5 px-2 rounded-full font-medium
               ${CATEGORY_COLORS[record.category]}`}
             >
               {CATEGORY_LABELS[record.category]}
@@ -145,13 +147,13 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
         </div>
       )}
 
-      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-50">
+      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-50 dark:border-gray-700">
         <button
           onClick={handleView}
           disabled={viewing}
           className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                     text-blue-600 bg-gray-50 rounded-lg hover:bg-blue-100
-                     transition-colors disabled:opacity-50"
+                     text-blue-600 dark:text-gray-300 bg-gray-50 dark:bg-transparent rounded-lg hover:bg-blue-100 dark:hover:bg-transparent
+                     transition-colors disabled:opacity-50 dark:hover:text-blue-300"
         >
           {viewing ? "Opening..." : "👁 View"}
         </button>
@@ -160,7 +162,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
           <button
             onClick={() => setShowConfirm(true)}
             className="flex items-center gap-1.5 p-1 text-lg font-medium
-                       text-gray-600 bg-red-50 rounded-lg hover:bg-red-100
+                       text-gray-600 bg-red-50 dark:bg-transparent rounded-lg hover:bg-red-100 dark:hover:bg-transparent 
                        transition-colors ml-auto hover:text-red-500"
           >
             <MdDeleteForever />

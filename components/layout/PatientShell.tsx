@@ -232,7 +232,7 @@ export default function PatientShell({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex ">
+    <div className="min-h-screen flex bg-background">
       <Sidebar
         navItems={primaryNav}
         bottomItems={bottomNav}

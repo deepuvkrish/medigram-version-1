@@ -70,14 +70,14 @@ export default function RecordList({ initialRecords }: Props) {
                 ${
                   tab === t.value
                     ? "bg-blue-100 text-blue-600 border border-blue-200"
-                    : "bg-white text-gray-600 border border-gray-200 hover:bg-gray-50"
+                    : "bg-white dark:bg-[#161618] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-blue-300 dark:hover:text-gray-700"
                 } 
               `}
             >
               {t.label}
               <span
                 className={`text-xs px-1.5 py-0.5 rounded-full
-                ${tab === t.value ? "bg-(--cornBlue) text-white" : "bg-gray-100 text-gray-500"}
+                ${tab === t.value ? "bg-(--cornBlue) text-white" : "bg-gray-100 text-gray-500 dark:bg-transparent"}
               `}
               >
                 {count}

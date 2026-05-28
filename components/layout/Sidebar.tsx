@@ -89,15 +89,15 @@ export default function Sidebar({
       {/* ── Sidebar panel ───────────────────────────────────── */}
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-full w-64 bg-(--mobileDarkSide) md:bg-white border-r 
-          md:border-gray-200 border-gray-700
+          fixed top-0 left-0 z-30 h-full w-64 bg-(--mobileDarkSide) md:bg-(--mobileDarkSideMobile) border-r 
+          md:border-gray-200 dark:md:border-black border-gray-700
           flex flex-col transition-transform duration-300 ease-in-out
           lg:translate-x-0 lg:static lg:z-auto
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* ── Logo ──────────────────────────────────────────── */}
-        <div className="px-5 py-5 border-b border-gray-700 md:border-gray-100 flex items-center justify-between">
+        <div className="px-5 py-5 border-b border-gray-700 md:border-gray-100 dark:md:border-gray-800 flex items-center justify-between">
           <Link href="/" className=" tracking-tight">
             <Image
               src="/images/heal_nav.png"
@@ -130,13 +130,12 @@ export default function Sidebar({
         </div>
 
         {/* ── User info strip ───────────────────────────────── */}
-        <div className="px-4 py-3 border-b border-gray-700 md:border-gray-100 flex items-center gap-3">
+        <div className="px-4 py-3 border-b border-gray-700 md:border-gray-100 dark:md:border-gray-800 flex items-center gap-3">
           {/* Avatar */}
           <div
-            className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center
-                          shrink-0 overflow-hidden"
+            className={` ${avatarUrl && avatarUrl !== "null" ? "p-0" : "p-2"} w-10 h-10 rounded-full overflow-hidden bg-blue-50 flex items-center justify-center border border-(--cornBlue)/20 shadow-sm`}
           >
-            {avatarUrl ? (
+            {avatarUrl && avatarUrl !== "null" ? (
               <Image
                 src={avatarUrl}
                 alt={userName}
@@ -146,13 +145,15 @@ export default function Sidebar({
                 unoptimized
               />
             ) : (
-              <span className="text-xs font-semibold text-white">
-                {initials}
-              </span>
+              <img
+                src="/images/icons/user3.svg"
+                alt="user image"
+                className="w-full h-full object-contain"
+              />
             )}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-white md:text-gray-900 truncate">
+            <p className="text-sm font-medium text-white md:text-gray-900 dark:md:text-gray-200 truncate">
               {userRole == "patient" ? " " : "Dr "} {userName}
             </p>
             <p className="text-xs text-gray-400 truncate">{userEmail}</p>
@@ -168,7 +169,7 @@ export default function Sidebar({
 
         {/* ── Bottom items ──────────────────────────────────── */}
         {bottomItems && bottomItems.length > 0 && (
-          <div className="px-3 py-2 border-t border-gray-100 flex flex-col gap-0.5">
+          <div className="px-3 py-2 border-t border-gray-200 dark:border-gray-800 flex flex-col gap-0.5">
             {bottomItems.map((item) => (
               <NavLink key={item.href} item={item} pathname={pathname} />
             ))}
@@ -176,7 +177,7 @@ export default function Sidebar({
         )}
 
         {/* ── Logout ────────────────────────────────────────── */}
-        <div className="px-3 py-3 border-t border-gray-100">
+        <div className="px-3 py-3 border-t border-gray-200 dark:border-gray-800">
           <button
             onClick={handleLogout}
             disabled={loggingOut}
@@ -215,7 +216,7 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
     return (
       <div
         className="flex items-center gap-3 px-3 py-2 rounded-lg
-                   text-sm text-gray-300 cursor-not-allowed select-none"
+                   text-sm text-gray-600 md:text-gray-400 dark:md:text-gray-700 cursor-not-allowed select-none"
       >
         <span className="w-4 h-4 shrink-0">{item.icon}</span>
         <span className="flex-1">{item.label}</span>
@@ -232,12 +233,12 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
     <Link
       href={item.href}
       className={`
-        flex items-center gap-3 px-3 py-2 rounded-lg text-sm
+        flex items-center gap-3 px-3 py-2 rounded-lg text-sm  
         transition-colors
         ${
           isActive
-            ? "bg-transparent md:bg-blue-100/50 text-(--cornBlue) md:text-[#1f3bb3] font-medium"
-            : "text-gray-600  hover:text-[#4a89fd]"
+            ? "bg-transparent md:bg-blue-100/50 dark:md:bg-blue-400/30 text-(--cornBlue) md:text-[#1f3bb3] dark:md:text-[#7bc2f8] font-medium"
+            : "text-gray-600 dark:text-gray-200  hover:text-[#4a89fd]"
         }
       `}
     >

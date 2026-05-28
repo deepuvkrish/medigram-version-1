@@ -145,12 +145,11 @@ export default function DoctorProfileForm({
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
             Account
           </p>
-          <div className="bg-gray-50 rounded-lg px-4 py-1 text-sm text-gray-600">
-            <span className="font-medium">Email: </span>
-            {profile.email}
-          </div>
-          <div className="bg-gray-50 rounded-lg px-4 py-1 text-sm text-gray-600 ">
-            <span className="font-medium">Specialty: </span>
+
+          <div className="bg-transparent rounded-lg px-4 py-1 text-sm text-blue-400 ">
+            <span className="font-medium text-gray-500 dark:text-gray-400">
+              Specialty:{" "}
+            </span>
             {doctorProfile.specialty}
             <span className="text-xs text-gray-400 ml-2">
               (contact support to change)
@@ -169,12 +168,14 @@ export default function DoctorProfileForm({
                 label="First name"
                 required
                 error={errors.first_name?.message}
+                edit
                 {...register("first_name")}
               />
               <Input
                 label="Last name"
                 error={errors.last_name?.message}
                 {...register("last_name")}
+                edit
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -184,16 +185,19 @@ export default function DoctorProfileForm({
                 placeholder="+91 98765 43210"
                 error={errors.phone?.message}
                 {...register("phone")}
+                edit
               />
               <Input
                 label="Current hospital"
                 error={errors.hospital_name?.message}
                 {...register("hospital_name")}
+                edit
               />
               <Input
                 label="City"
                 error={errors.city?.message}
                 {...register("city")}
+                edit
               />
             </div>
             {/* Qualifications autocomplete */}

@@ -36,7 +36,11 @@ function formatBytes(bytes: number): string {
 function StorageBar({ used, cap }: { used: number; cap: number }) {
   const pct = Math.min((used / cap) * 100, 100);
   const color =
-    pct >= 95 ? "bg-red-500" : pct >= 80 ? "bg-amber-400" : "bg-[#6495ed]";
+    pct >= 95
+      ? "bg-red-500"
+      : pct >= 80
+        ? "bg-amber-400"
+        : "bg-[#6495ed] dark:bg-[#2770f9]";
   return (
     <div>
       <div className="flex justify-between text-xs text-gray-500 mb-1.5">
@@ -89,7 +93,7 @@ export default async function PatientDashboard() {
     <div className="flex flex-col gap-6">
       {/* ── Welcome ─────────────────────────────────────────── */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-200">
           {greeting}, {firstName} 👋
         </h1>
         <p className="text-gray-500 mt-1 text-sm">
@@ -100,9 +104,9 @@ export default async function PatientDashboard() {
       {/* ── Stats row ───────────────────────────────────────── */}
       <div className="hidden md:grid grid-cols-3 gap-4">
         {/* Storage */}
-        <div className="bg-[#001f4717] rounded-xl border border-gray-100 p-4 flex flex-col gap-3 cursor-pointer hover:bg-[#001f4734] duration-300">
+        <div className="bg-[#001f4717] dark:bg-[#2a2f34] rounded-xl border border-gray-100 dark:border-none p-4 flex flex-col gap-3 cursor-pointer hover:bg-[#001f4734] duration-300">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
               Desk Storage
             </span>
             <span
@@ -120,7 +124,7 @@ export default async function PatientDashboard() {
         </div>
 
         {/* Shares */}
-        <div className="bg-[#ffe9e9] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdede] duration-300">
+        <div className="bg-[#ffe9e9] dark:bg-[#ffd5d5] rounded-xl border border-gray-100 dark:border-none p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdede] duration-300">
           <span className="text-sm font-medium text-gray-600">
             Shares this month
           </span>
@@ -128,7 +132,7 @@ export default async function PatientDashboard() {
             <span className="text-3xl font-bold text-gray-900">
               {sharesLeft}
             </span>
-            <span className="text-sm text-gray-400 mb-1">
+            <span className="text-sm text-gray-400 dark:text-gray-500 mb-1">
               of {FREE_SHARE_LIMIT} remaining
             </span>
           </div>
@@ -140,7 +144,7 @@ export default async function PatientDashboard() {
         </div>
 
         {/* Subscription */}
-        <div className="bg-[#ffeaf5] rounded-xl border border-gray-100 p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdbee] duration-300">
+        <div className="bg-[#ffeaf5] dark:bg-[#ffc4e3] rounded-xl border border-gray-100 dark:border-none p-4 flex flex-col gap-1 cursor-pointer hover:bg-[#ffdbee] duration-300">
           <span className="text-sm font-medium text-gray-600 flex items-center">
             <Crown className="mr-1 text-yellow-500" />
             Subscription
@@ -159,7 +163,7 @@ export default async function PatientDashboard() {
           {tier === "free" && (
             <button
               disabled
-              className="mt-2 text-xs text-blue-600 text-left hover:underline
+              className="mt-2 text-xs text-blue-600 dark:text-pink-900 dark:font-semibold text-left hover:underline
                          disabled:cursor-not-allowed disabled:opacity-50 "
             >
               Upgrade to Pro →

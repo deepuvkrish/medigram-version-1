@@ -114,13 +114,13 @@ export default function AvatarUpload({
   return (
     <div className="flex items-center gap-4">
       {/* Avatar preview */}
-      <div className="relative flex-shrink-0">
+      <div className="relative shrink-0">
         <div
-          className="w-16 h-16 rounded-full overflow-hidden bg-blue-100
-                        flex items-center justify-center border-2 border-white
-                        shadow-sm"
+          className={` ${displayUrl && displayUrl !== "null" ? "p-0" : "p-2.5"} w-16 h-16 rounded-full overflow-hidden bg-(--cornBlue)
+    flex items-center justify-center border-2 border-white
+    shadow-sm`}
         >
-          {displayUrl ? (
+          {displayUrl && displayUrl !== "null" ? (
             <img
               src={displayUrl}
               alt={displayName}
@@ -128,18 +128,19 @@ export default function AvatarUpload({
             />
           ) : role === "doctor" ? (
             <img
-              src="/doctor.png"
+              src="/images/icons/doctor.svg"
               alt="Default doctor avatar"
               className="w-full h-full object-cover"
               onError={(e) => {
-                // Fallback to initials if doctor.png doesn't exist yet
                 e.currentTarget.style.display = "none";
               }}
             />
           ) : (
-            <span className="text-lg font-semibold text-blue-600">
-              {initials}
-            </span>
+            <img
+              src="/images/icons/user3.svg"
+              alt="user image"
+              className="w-full h-full object-contain"
+            />
           )}
         </div>
 
