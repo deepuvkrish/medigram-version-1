@@ -145,11 +145,11 @@ export default function DoctorProfileForm({
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
             Account
           </p>
-          <div className="bg-gray-50 rounded-lg px-4 py-3 text-sm text-gray-600">
+          <div className="bg-gray-50 rounded-lg px-4 py-1 text-sm text-gray-600">
             <span className="font-medium">Email: </span>
             {profile.email}
           </div>
-          <div className="bg-gray-50 rounded-lg px-4 py-3 text-sm text-gray-600 mt-2">
+          <div className="bg-gray-50 rounded-lg px-4 py-1 text-sm text-gray-600 ">
             <span className="font-medium">Specialty: </span>
             {doctorProfile.specialty}
             <span className="text-xs text-gray-400 ml-2">
@@ -177,23 +177,25 @@ export default function DoctorProfileForm({
                 {...register("last_name")}
               />
             </div>
-            <Input
-              label="Phone number"
-              type="tel"
-              placeholder="+91 98765 43210"
-              error={errors.phone?.message}
-              {...register("phone")}
-            />
-            <Input
-              label="Current hospital"
-              error={errors.hospital_name?.message}
-              {...register("hospital_name")}
-            />
-            <Input
-              label="City"
-              error={errors.city?.message}
-              {...register("city")}
-            />
+            <div className="grid grid-cols-2 gap-3">
+              <Input
+                label="Phone number"
+                type="tel"
+                placeholder="+91 98765 43210"
+                error={errors.phone?.message}
+                {...register("phone")}
+              />
+              <Input
+                label="Current hospital"
+                error={errors.hospital_name?.message}
+                {...register("hospital_name")}
+              />
+              <Input
+                label="City"
+                error={errors.city?.message}
+                {...register("city")}
+              />
+            </div>
             {/* Qualifications autocomplete */}
             <QualificationsInput
               value={qualifications}
