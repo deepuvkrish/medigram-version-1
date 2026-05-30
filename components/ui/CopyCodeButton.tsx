@@ -46,19 +46,19 @@ export default function CopyCodeButton({ code }: Props) {
         ${
           copied
             ? " text-green-700 dark:text-green-400"
-            : "text-gray-400 dark:text-blue-200/40 hover:text-(--cornBlue)"
+            : "text-gray-200 md:text-gray-400 dark:text-blue-200/40 hover:text-(--cornBlue)"
         }
       `}
     >
       {copied ? (
         <>
           <CheckCheck className="mr-0.5 w-4 h-4" />
-          Copied!
+          <span className="hidden md:block">Copied!</span>
         </>
       ) : (
         <>
           <Copy className="mr-0.5 w-4 h-4" />
-          Copy ID
+          <span className="hidden md:block">Copy ID</span>
         </>
       )}
     </button>

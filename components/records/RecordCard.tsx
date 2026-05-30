@@ -120,7 +120,7 @@ export default function RecordCard({ record, onDelete, onView }: Props) {
               </span>
             </div>
             <span
-              className={`shrink-0 text-[12px] px-2 py-0.5 px-2 rounded-full font-medium
+              className={`shrink-0 text-[12px] py-0.5 px-2 rounded-full font-medium
               ${CATEGORY_COLORS[record.category]}`}
             >
               {CATEGORY_LABELS[record.category]}

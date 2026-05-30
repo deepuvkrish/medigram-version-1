@@ -22,6 +22,7 @@
   --mobileDark: #1e1f28;
   --mobileDarkSide: #262836;
   --mobileDarkSideMobile: #fff;
+  --mobileDarkLogin: #e3e3e3;
 }
 
 @theme inline {
@@ -36,6 +37,7 @@
     --background: #242428;
     --foreground: #f1f4fb;
     --mobileDarkSideMobile: #161618;
+    --mobileDarkLogin: #1e1f28;
   }
 }
 

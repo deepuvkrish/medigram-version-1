@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 // which needs to be wrapped in a Suspense boundary in Next.js App Router.
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-(--mobileDark) md:bg-gray-100 flex items-center justify-center px-4 py-12">
+    <main className="min-h-screen bg-(--mobileDark) md:bg-(--mobileDarkSideMobile) flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="flex flex-col items-center justify-center text-center mb-8">
           <Image
@@ -20,7 +20,7 @@ export default function LoginPage() {
             height={200}
             width={200}
           />
-          <h1 className="mt-4 text-2xl font-bold text-white md:text-gray-900">
+          <h1 className="mt-4 text-2xl font-bold text-white md:text-gray-900 md:dark:text-gray-200">
             Welcome back
           </h1>
           <p className="mt-1 text-sm text-gray-300 md:text-gray-500">
@@ -28,7 +28,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <div className="bg-(--mobileDark) md:bg-white rounded-2xl shadow-sm border-none md:border md:border-gray-100 px-6 py-8">
+        <div className="bg-(--mobileDark) md:bg-(--mobileDarkLogin) rounded-2xl shadow-sm border-none md:border md:border-gray-100 px-6 py-8">
           <Suspense
             fallback={<div className="text-sm text-gray-400">Loading...</div>}
           >

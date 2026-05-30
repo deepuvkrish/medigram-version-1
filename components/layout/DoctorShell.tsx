@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar, { type NavItem } from "@/components/layout/Sidebar";
 import TopBar from "@/components/layout/TopBar";
+import NotificationBell from "@/components/notifications/NotificationBell";
 
 const Icons = {
   dashboard: (
@@ -32,21 +33,6 @@ const Icons = {
         strokeLinejoin="round"
         strokeWidth={2}
         d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
-      />
-    </svg>
-  ),
-  notifications: (
-    <svg
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      className="w-4 h-4"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
       />
     </svg>
   ),
@@ -80,24 +66,42 @@ const Icons = {
       />
     </svg>
   ),
+  verification: (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      className="w-4 h-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+      />
+    </svg>
+  ),
+  scan: (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      className="w-4 h-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"
+      />
+    </svg>
+  ),
 };
 
 const primaryNav: NavItem[] = [
   { label: "Dashboard", href: "/doctor/dashboard", icon: Icons.dashboard },
-  {
-    label: "My Patients",
-    href: "/doctor/patients",
-    icon: Icons.patients,
-    disabled: true,
-    badge: "Phase 3",
-  },
-  {
-    label: "Notifications",
-    href: "/doctor/notifications",
-    icon: Icons.notifications,
-    disabled: true,
-    badge: "Phase 3",
-  },
+  { label: "My Patients", href: "/doctor/patients", icon: Icons.patients },
+  { label: "Scan QR", href: "/doctor/scan", icon: Icons.scan },
 ];
 
 const bottomNav: NavItem[] = [
@@ -105,9 +109,7 @@ const bottomNav: NavItem[] = [
   {
     label: "Verification",
     href: "/doctor/verification",
-    icon: Icons.verified,
-    disabled: true,
-    badge: "Phase 3",
+    icon: Icons.verification,
   },
 ];
 
@@ -127,7 +129,7 @@ export default function DoctorShell({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-(--mobileDark) md:bg-background">
+    <div className="flex bg-background h-fit">
       <Sidebar
         navItems={primaryNav}
         bottomItems={bottomNav}
@@ -138,9 +140,13 @@ export default function DoctorShell({
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-w-0">
-        <TopBar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 px-4 py-6 lg:px-8 lg:py-4 max-w-6xl w-full mx-auto">
+      <div className="flex-1 flex flex-col min-w-0  mb-3">
+        <TopBar onMenuClick={() => setSidebarOpen(true)} role="doctor" />
+        <div className="hidden h-16 bg-(--mobileDarkSide) md:bg-(--mobileDarkSideMobile) md:flex justify-end items-center px-8  fixed top-0 right-0 w-full z-10 border border-gray-100 dark:border-gray-800">
+          <NotificationBell role="doctor" />
+        </div>
+
+        <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8 mt-1 md:mt-16 max-w-6xl w-full ml-0 md:ml-64">
           {children}
         </main>
       </div>

@@ -9,6 +9,9 @@ import { createClient } from "@/lib/supabase/client";
 import { loginSchema, type LoginData } from "@/lib/validations";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
+import { CgLogIn } from "react-icons/cg";
+import { FaUserMd } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa6";
 
 // ============================================================
 // LoginForm
@@ -128,7 +131,7 @@ export default function LoginForm() {
         fullWidth
         isLoading={isSubmitting}
       >
-        Log in
+        Log in <CgLogIn className="h-4 w-4 mt-0.5" />
       </Button>
 
       <div className="relative my-1">
@@ -136,7 +139,7 @@ export default function LoginForm() {
           <div className="w-full border-t border-gray-200" />
         </div>
         <div className="relative flex justify-center text-xs">
-          <span className="bg-(--mobileDark) md:bg-white px-3 text-gray-400">
+          <span className="bg-(--mobileDark) md:bg-(--mobileDarkLogin) px-3 text-gray-400">
             New to Medgram?
           </span>
         </div>
@@ -145,17 +148,16 @@ export default function LoginForm() {
       <div className="grid grid-cols-2 gap-3">
         <Link
           href="/auth/signup/patient"
-          className="text-center px-4 py-2 border border-gray-600 md:border-gray-300 rounded-lg
-                     text-sm text-gray-100 md:text-gray-700 hover:bg-gray-50 transition-colors"
+          className="flex items-center justify-center text-center px-4 py-2  rounded-lg text-sm text-gray-100 md:text-gray-500 hover:bg-blue-400 hover:text-blue-100 transition-colors"
         >
+          <FaUserTie className="w-4 h-4 mr-1" />
           User signup
         </Link>
         <Link
           href="/auth/signup/doctor"
-          className="text-center px-4 py-2 border border-gray-600 md:border-gray-300 rounded-lg
-                     text-sm text-gray-100 md:text-gray-700 hover:bg-gray-50 transition-colors"
+          className="flex items-center justify-center  text-center px-4 py-2  rounded-lg text-sm text-gray-100 md:text-gray-500 hover:bg-blue-400 hover:text-blue-100 transition-colors"
         >
-          Doctor signup
+          <FaUserMd className="w-4 h-4 mr-1" /> Doctor signup
         </Link>
       </div>
     </form>

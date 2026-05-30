@@ -43,7 +43,7 @@ export default async function DoctorProfilePage() {
   const Specs = `${doctorRes.data.specialty}`;
   const hName = `${doctorRes.data.hospital_name}`;
   const qualifications: string[] = doctorRes.data.qualifications ?? [];
-  // const Verify = `${verificationRes.data.status}`;
+  const Verify = `${verificationRes.data.status}`;
 
   return (
     <div className="flex flex-col gap-4 max-w-6xl">
@@ -56,8 +56,121 @@ export default async function DoctorProfilePage() {
         </p>
       </div>
 
+      {/* Mobile Profile Header */}
+      <div className="bg-(--mobileDarkSide) rounded-xl border border-gray-600 p-3 md:hidden flex flex-col items-center w-full h-auto relative ">
+        <Image
+          src={
+            Specs === "Cardiologist"
+              ? "/images/icons/heart3.svg"
+              : Specs === "Anaesthesiologist"
+                ? "/images/icons/syringe.svg"
+                : Specs === "Dentist"
+                  ? "/images/icons/teeth.svg"
+                  : Specs === "Dermatologist"
+                    ? "/images/icons/skin.svg"
+                    : Specs === "Dermatologist"
+                      ? "/images/icons/skin.svg"
+                      : Specs === "Diabetologist"
+                        ? "/images/icons/sugar.svg"
+                        : Specs === "Endocrinologist"
+                          ? "/images/icons/default.svg"
+                          : Specs === "Obstetrics and Gynecology"
+                            ? "/images/icons/gyno.svg"
+                            : Specs === "Ophthalmologist"
+                              ? "/images/icons/eyes.svg"
+                              : Specs === "Nephrologist"
+                                ? "/images/icons/kidney.svg"
+                                : Specs === "Neurologist"
+                                  ? "/images/icons/brain.svg"
+                                  : Specs === "Orthopedics"
+                                    ? "/images/icons/ortho.svg"
+                                    : Specs === "Gynaecologist"
+                                      ? "/images/icons/gyno.svg"
+                                      : Specs === "Pulmonologist"
+                                        ? "/images/icons/lungs.svg"
+                                        : "/images/icons/default.svg"
+          }
+          alt="Department Logo"
+          width={50}
+          height={50}
+          className="opacity-70 absolute right-0 top-0"
+        />
+        <div className="flex w-full relative">
+          <div className="w-[35%] relative">
+            <Image
+              src={
+                avatarURL && avatarURL !== "null"
+                  ? avatarURL
+                  : "/images/icons/doctor.svg"
+              }
+              alt="Profile Picture"
+              className="w-30 h-30 object-cover rounded-xl"
+              width={100}
+              height={100}
+              unoptimized
+            />
+            <CiStethoscope className="bg-(--cornBlue) text-white p-1 rounded-full h-8 w-8 absolute -top-1 -right-1 z-2" />
+          </div>
+          <div className="w-[65%] px-2 flex flex-col">
+            <div className="flex flex-col justify-center">
+              <span className="font-bold font-mono text-lg uppercase text-gray-200 ">
+                Dr. {Name} {LName}
+              </span>
+              <span className="mt-2 flex items-center text-gray-400">
+                {Specs}
+              </span>
+              <span className="flex items-center text-gray-500 text-[12px]">
+                {qualifications?.map((item) => (
+                  <span key={item} className="mr-2 text-xs font-medium ">
+                    {item}
+                  </span>
+                ))}
+              </span>
+              <span className="mt-2 flex items-center text-gray-400">
+                <AtSign className="mr-1 w-3 h-4" /> {Emails}
+              </span>
+
+              <div className="mt-1 w-full flex justify-between">
+                <div className="flex items-center text-gray-400">
+                  <TbHospital className="h-4 w-4 mr-1" />
+                  <span className="text-sm capitalize">{hName}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex items-center border-t border-gray-700 mt-2 pt-2">
+          <div className="w-[60%]">
+            <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+              Your Doctor ID
+            </p>
+            <span className="flex items-center text-lg font-bold font-mono tracking-widest text-blue-400/50   ">
+              {doctorCode}
+              <CopyCodeButton code={doctorCode} />
+            </span>
+          </div>
+          <div className="w-[40%] flex items-center">
+            <Image
+              src={
+                Verify === "pending"
+                  ? "/images/icons/shield-pending.svg"
+                  : Verify === "rejected"
+                    ? "/images/icons/shield-verified.svg"
+                    : Verify === "verified"
+                      ? "/images/icons/shield-verified.svg"
+                      : "/images/icons/shield-verified.svg"
+              }
+              alt="Verification Status"
+              width={20}
+              height={20}
+            />
+            <span className="uppercase font-mono ml-1 text-xs">Verified</span>
+          </div>
+        </div>
+      </div>
+
       {/* DR- code display — read only */}
-      <div className="bg-(--mobileDarkSide) sm:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 sm:border-gray-200 md:dark:border-gray-800 px-6 py-6 flex items-center w-full h-auto md:h-45">
+      <div className="bg-(--mobileDarkSide) sm:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 sm:border-gray-200 md:dark:border-gray-800 px-6 py-6 hidden md:flex items-center w-full h-auto md:h-45 relative">
         <div className="w-fit relative">
           <Image
             src={
@@ -132,13 +245,13 @@ export default async function DoctorProfilePage() {
                                           ? "/images/icons/lungs.svg"
                                           : "/images/icons/default.svg"
             }
-            alt="Verification Status"
+            alt="Department Logo"
             width={100}
             height={100}
             className="opacity-40"
           />
         </div>
-        {/* <div className="flex items-center">
+        <div className="hidden md:flex items-center absolute -top-7 right-0 bg-(--mobileDarkSideMobile) rounded-tr-2xl rounded-tl-2xl px-3 py-2">
           <Image
             src={
               Verify === "pending"
@@ -150,10 +263,10 @@ export default async function DoctorProfilePage() {
                     : "/images/icons/shield-verified.svg"
             }
             alt="Verification Status"
-            width={50}
-            height={50}
+            width={20}
+            height={20}
           />
-          <span className="font-medium text-xs text-gray-500 uppercase">
+          <span className="font-medium text-[10px] ml-2  text-gray-500 uppercase">
             {Verify === "pending"
               ? "Verification Pending"
               : Verify === "rejected"
@@ -162,7 +275,7 @@ export default async function DoctorProfilePage() {
                   ? "You've been succesfully verified."
                   : "Verify here."}
           </span>
-        </div> */}
+        </div>
         <div className="w-fit ml-20 px-2 ">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
             Your Doctor ID
@@ -176,14 +289,9 @@ export default async function DoctorProfilePage() {
             records.
           </p>
         </div>
-        {doctorRes.data.is_verified && (
-          <span className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-medium">
-            ✓ Verified
-          </span>
-        )}
       </div>
 
-      <div className="bg-(--mobileDarkSide) sm:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100 md:border-gray-200 md:dark:border-gray-800 px-6 py-6 shadow-sm">
+      <div className="bg-[#242428] md:bg-(--mobileDarkSideMobile) rounded-xl border border-gray-100/0 md:border-gray-200 md:dark:border-gray-800 px-6 py-6 shadow-sm">
         <DoctorProfileForm
           profile={profileRes.data}
           doctorProfile={doctorRes.data}

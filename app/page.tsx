@@ -65,7 +65,7 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/auth/signup/doctor"
-            className="flex items-center px-6 py-3 bg-[#6495ed1f] text-gray-200 md:text-gray-700 rounded-lg font-medium hover:bg-[#6494ed75] transition-colors text-center"
+            className="flex items-center px-6 py-3 bg-[#6495ed1f] text-gray-200 dark:md:text-gray-300 md:text-gray-700 rounded-lg font-medium hover:bg-[#6494ed75] transition-colors text-center"
           >
             <CiMedicalCross />
             Join as a Doctor

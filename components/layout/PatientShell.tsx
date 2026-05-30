@@ -1,8 +1,10 @@
+//components/layout/PatientShell.tsx
 "use client";
 
 import { useState } from "react";
 import Sidebar, { type NavItem } from "@/components/layout/Sidebar";
 import TopBar from "@/components/layout/TopBar";
+import NotificationBell from "@/components/notifications/NotificationBell";
 
 const Icons = {
   dashboard: (
@@ -212,11 +214,11 @@ const bottomNav: NavItem[] = [
     href: "/patient/subscription",
     icon: Icons.subscription,
     disabled: true,
-    badge: "Phase 2",
+    badge: "Soon",
   },
 ];
 
-interface PatientShellProps {
+interface Props {
   children: React.ReactNode;
   userName: string;
   userEmail: string;
@@ -228,11 +230,11 @@ export default function PatientShell({
   userName,
   userEmail,
   avatarUrl,
-}: PatientShellProps) {
+}: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="flex  md:bg-background h-fit">
       <Sidebar
         navItems={primaryNav}
         bottomItems={bottomNav}
@@ -243,9 +245,14 @@ export default function PatientShell({
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-w-0 ">
-        <TopBar onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto">
+      <div className="flex-1 flex flex-col min-w-0 mb-3 ">
+        <TopBar onMenuClick={() => setSidebarOpen(true)} role="patient" />
+
+        <div className="hidden h-16 bg-(--mobileDarkSide) md:bg-(--mobileDarkSideMobile) md:flex justify-end px-8 pt-4 fixed top-0 right-0 w-full z-10 border border-gray-100 dark:border-gray-800">
+          <NotificationBell role="patient" />
+        </div>
+
+        <main className="flex-1 px-4 py-6 lg:px-8 lg:py-8 mt-1 md:mt-16 max-w-6xl w-full ml-0 md:ml-64">
           {children}
         </main>
       </div>

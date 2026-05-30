@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function DoctorSignupPage() {
   return (
-    <main className="min-h-screen bg-(--mobileDark) md:bg-gray-50 flex items-center justify-center px-4 py-12">
+    <main className="min-h-screen bg-(--mobileDark) md:bg-(--mobileDarkSideMobile) flex items-center justify-center px-4 py-12">
       <div className="flex flex-col md:flex-row w-full max-w-screen justify-between">
         <div className="flex flex-col items-center justify-center text-center mb-8 md:w-1/2 w-full">
           <Image
@@ -18,7 +18,7 @@ export default function DoctorSignupPage() {
             width={300}
             className="md:w-120 md:h-50 w-60 h-25"
           />
-          <h1 className="mt-4 text-2xl font-bold text-white md:text-gray-900">
+          <h1 className="mt-4 text-2xl font-bold text-white md:text-gray-900 dark:md:text-gray-300">
             Join as a doctor
           </h1>
           <p className="mt-1 text-sm text-gray-500">
@@ -28,7 +28,7 @@ export default function DoctorSignupPage() {
 
         {/* Form card */}
         <div className="flex md:w-1/2 w-full justify-center h-full items-center">
-          <div className="bg-(--mobileDark) md:bg-white rounded-2xl shadow-sm border-none md:border md: border-gray-100 px-6 py-8">
+          <div className="bg-(--mobileDark) md:bg-(--mobileDarkLogin) rounded-2xl shadow-sm border-none md:border md: border-gray-100 px-6 py-8">
             <DoctorSignupForm />
           </div>
         </div>

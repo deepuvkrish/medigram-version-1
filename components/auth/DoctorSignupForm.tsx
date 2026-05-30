@@ -162,7 +162,13 @@ export default function DoctorSignupForm() {
         </div>
       )}
 
-      <Button type="submit" fullWidth isLoading={isSubmitting} className="mt-2">
+      <Button
+        type="submit"
+        variant="cornBlue"
+        fullWidth
+        isLoading={isSubmitting}
+        className="mt-2"
+      >
         Create doctor account
       </Button>
 
@@ -170,7 +176,7 @@ export default function DoctorSignupForm() {
         Are you a patient?{" "}
         <Link
           href="/auth/signup/patient"
-          className="text-blue-600 hover:underline"
+          className="text-(--cornBlue)  hover:underline"
         >
           Register here
         </Link>
@@ -178,7 +184,7 @@ export default function DoctorSignupForm() {
 
       <p className="text-center text-sm text-gray-500">
         Already have an account?{" "}
-        <Link href="/auth/login" className="text-blue-600 hover:underline">
+        <Link href="/auth/login" className="text-(--cornBlue)  hover:underline">
           Log in
         </Link>
       </p>

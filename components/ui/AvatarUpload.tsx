@@ -4,7 +4,7 @@
 
 import { useState, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
-
+import { MdEdit } from "react-icons/md";
 // ============================================================
 // AvatarUpload — profile photo upload component.
 // Uploads to Supabase Storage 'avatars' bucket.
@@ -152,7 +152,7 @@ export default function AvatarUpload({
           className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full
                      bg-blue-600 text-white flex items-center justify-center
                      hover:bg-blue-700 transition-colors shadow-sm
-                     disabled:opacity-50"
+                     disabled:opacity-50 cursor-pointer "
           aria-label="Upload profile photo"
         >
           {uploading ? (
@@ -176,26 +176,16 @@ export default function AvatarUpload({
               />
             </svg>
           ) : (
-            <svg
-              className="w-3 h-3"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M12 4v16m8-8H4"
-              />
-            </svg>
+            <MdEdit />
           )}
         </button>
       </div>
 
       {/* Text info */}
       <div>
-        <p className="text-sm font-medium text-gray-700">Profile photo</p>
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          Profile photo
+        </p>
         <p className="text-xs text-gray-400 mt-0.5">
           JPG, PNG, WebP or HEIC — max 5MB
         </p>

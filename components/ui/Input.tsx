@@ -26,13 +26,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <input
           ref={ref}
-          className={`
-            w-full px-3 py-2 rounded-lg text-sm  text-gray-100 md:text-gray-400 dark:md:text-gray-300  bg-[#242428] md:bg-[#f1f4fb] dark:md:bg-[#232428] placeholder-gray-400 md:dark:placeholder-gray-700
+          className={`relative cursor-text w-full px-3 py-2 rounded-lg text-sm  text-gray-100 md:text-gray-400 dark:md:text-gray-300  bg-[#242428] md:bg-[#f1f4fb] dark:md:bg-[#232428] placeholder-gray-400 md:dark:placeholder-gray-600
             transition-colors duration-150 focus:outline-none focus:ring-3 focus:ring-(--cornBlue) border focus:border-none  disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed dark:[&::-webkit-calendar-picker-indicator]:cursor-pointer dark:[&::-webkit-calendar-picker-indicator]:opacity-70  dark:[&::-webkit-calendar-picker-indicator]:invert
             ${
               error
                 ? "border-red-400 focus:ring-red-400"
-                : "border-gray-300 dark:border-gray-900 hover:border-(--cornBlue)"
+                : "border-gray-300 dark:border-gray-700 hover:border-(--cornBlue)"
             }
             ${className}
             ${edit ? "pr-10" : ""}
@@ -40,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {edit && (
-          <MdEdit className="absolute right-3 top-1/2 -translate-y-1/2" />
+          <MdEdit className="absolute right-3 bottom-1 md:top-1/2 -translate-y-1/2" />
         )}
 
         {/* Error message — shown when validation fails */}

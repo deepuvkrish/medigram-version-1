@@ -86,7 +86,7 @@ export default function PatientProfileForm({ profile, patientProfile }: Props) {
       />
       {/* ── Account info (read-only) ──────────────────────── */}
       <div>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+        <p className="hidden md:block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
           Account
         </p>
       </div>

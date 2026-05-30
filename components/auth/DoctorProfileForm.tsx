@@ -27,6 +27,19 @@ interface Props {
   verification: DoctorVerification | null;
 }
 
+export function formatDate(dateString?: string | null) {
+  if (!dateString) return "-";
+
+  return new Date(dateString).toLocaleString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export default function DoctorProfileForm({
   profile,
   doctorProfile,
@@ -123,6 +136,7 @@ export default function DoctorProfileForm({
   };
 
   const verifStatus = verification?.status ?? "unverified";
+  const verfiTime = verification?.reviewed_at;
   const canSubmit = verifStatus === "unverified" || verifStatus === "rejected";
   const displayName = [profile.first_name, profile.last_name]
     .filter(Boolean)
@@ -230,14 +244,23 @@ export default function DoctorProfileForm({
 
       {/* ── Verification section ──────────────────────────── */}
       {!doctorProfile.is_verified && (
-        <div className="border-t border-gray-100 pt-6">
+        <div className="border-t border-gray-100 pt-6 text-[12px] md:text-sm">
           <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">
             Verification
           </p>
-          <p className="text-sm text-gray-500 mb-4">
-            Submit your MCI registration to get a verified badge on your
-            profile.
-          </p>
+          {verifStatus === "pending" ? (
+            <p className="text-sm text-gray-500 mb-4">
+              Submit your MCI registration to get a verified badge on your
+              profile.
+            </p>
+          ) : (
+            <span>
+              You have been Successfully Verified at{" "}
+              <span className="font-medium text-gray-900 dark:text-blue-300 ">
+                {formatDate(verfiTime)}{" "}
+              </span>
+            </span>
+          )}
 
           {/* Current status */}
           {verifStatus === "pending" && (

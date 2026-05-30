@@ -89,16 +89,14 @@ export default function Sidebar({
       {/* ── Sidebar panel ───────────────────────────────────── */}
       <aside
         className={`
-          fixed top-0 left-0 z-30 h-full w-64 bg-(--mobileDarkSide) md:bg-(--mobileDarkSideMobile) border-r 
-          md:border-gray-200 dark:md:border-black border-gray-700
-          flex flex-col transition-transform duration-300 ease-in-out
-          lg:translate-x-0 lg:static lg:z-auto
+          fixed top-0 left-0 z-30 h-full w-64 bg-(--mobileDarkSide) md:bg-(--mobileDarkSideMobile)  flex flex-col transition-transform duration-300 ease-in-out
+          lg:translate-x-0 lg:z-999 
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* ── Logo ──────────────────────────────────────────── */}
-        <div className="px-5 py-5 border-b border-gray-700 md:border-gray-100 dark:md:border-gray-800 flex items-center justify-between">
-          <Link href="/" className=" tracking-tight">
+        <div className="px-5 py-3 border-b border-gray-700 md:border-gray-100 dark:md:border-gray-800 flex items-center justify-between h-16">
+          <Link href="/" className="tracking-tight">
             <Image
               src="/images/heal_nav.png"
               alt="Background Image"
